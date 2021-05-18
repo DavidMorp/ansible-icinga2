@@ -86,5 +86,5 @@
   notify:
     - restart icinga2
   tags:
-    - icinga2
-    - features
+    - icinga2_all
+    - icinga2_features

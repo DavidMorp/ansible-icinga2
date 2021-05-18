@@ -4,29 +4,34 @@
   set_fact:
     icinga2_primary_master: "{{ icinga2_masters | reorder_master }}"
 
-- include: preparations.yml
+- include: prepare.yml
   become: true
   tags:
-    - icinga2
+    - icinga2_all
+    - icinga2_prepare
 
 - include: install.yml
   become: true
   tags:
-    - icinga2
+    - icinga2_all
+    - icinga2_install
 
 - include_tasks: master.yml
   when: icinga2_mode == 'master'
   tags:
-    - icinga2
+    - icinga2_all
+    - icinga2_master
 
 - include_tasks: satellite.yml
   when: icinga2_mode == 'satellite'
   tags:
-    - icinga2
+    - icinga2_all
+    - icinga2_satellite
 
 - include_tasks: service.yml
   tags:
-    - icinga2
+    - icinga2_all
+    - icinga2_service
 
 # ---------------------------------------------------------------------------------------
 
@@ -34,15 +39,15 @@
   when:
     - icinga2_mode == 'master'
   tags:
-    - icinga2
-    - backup
+    - icinga2_all
+    - icinga2_backup
 
 - include_tasks: master/restore.yml
   when:
     - icinga2_mode == 'master'
   tags:
-    - icinga2
-    - restore
+    - icinga2_all
+    - icinga2_restore
 
 - include_tasks: downtime.yml
   when:
@@ -53,6 +58,6 @@
     - icinga2_api.password is defined
     - icinga2_downtime_system_name is defined
   tags:
-    - icinga2
-    - downtime_schedule
-    - downtime_remove
+    - icinga2_all
+    - icinga2_downtime_schedule
+    - icinga2_downtime_remove

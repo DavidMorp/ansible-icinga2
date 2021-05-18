@@ -60,7 +60,7 @@
     - check configuration
     - restart icinga2
   tags:
-    - configure
+    - icinga2_configure
   when:
     - icinga2_primary_master is defined
     - icinga2_primary_master == ansible_fqdn
@@ -77,7 +77,7 @@
     - check configuration
     - restart icinga2
   tags:
-    - configure
+    - icinga2_configure
   when:
     - icinga2_primary_master is defined
     - icinga2_primary_master == ansible_fqdn

@@ -18,7 +18,7 @@
       when:
         - not _icinga2_ca_file.stat.exists
       tags:
-        - icinga2
+        - icinga2_all
 
     # renew stat with the ca and cert files
     #
@@ -41,7 +41,7 @@
         mode: 0640
         remote_src: true
       tags:
-        - icinga2
+        - icinga2_all
       when:
         _icinga2_ca_file.stat.exists
 

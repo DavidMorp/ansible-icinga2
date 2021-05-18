@@ -4,9 +4,9 @@
   set_fact:
     icinga2_primary_master: "{{ icinga2_masters | primary_master }}"
   tags:
-    - icinga2
-    - downtime_schedule
-    - downtime_remove
+    - icinga2_all
+    - icinga2_downtime_schedule
+    - icinga2_downtime_remove
 
 - name: check that all necessary information is available
   assert:
@@ -29,9 +29,9 @@
   retries: 10
   delay: 10
   tags:
-    - icinga2
-    - downtime_schedule
-    - downtime_remove
+    - icinga2_all
+    - icinga2_downtime_schedule
+    - icinga2_downtime_remove
   when:
     - icinga2_primary_master is defined
     - icinga2_primary_master == ansible_fqdn
@@ -52,8 +52,8 @@
     downtime_start: "{{ ansible_date_time.epoch }}"
     downtime_end: "{{ downtime_start | int + icinga2_downtime_duration * 60 }}"
   tags:
-    - icinga2
-    - downtime_schedule
+    - icinga2_all
+    - icinga2_downtime_schedule
   when:
     - icinga2_primary_master is defined
     - icinga2_primary_master == ansible_fqdn
